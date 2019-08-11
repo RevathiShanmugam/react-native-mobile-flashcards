@@ -7,10 +7,20 @@ import {
     StyleSheet,
     TextInput
 } from 'react-native'
+import { saveDeckTitle } from '../utils/api'
 
 export default class NewDeck extends Component {
     state = { title: '' }
 
+    handleSavePress = async () => {
+        const { navigation } = this.props
+        const { addDeckToState } = navigation.state.params
+
+        const newDeck = await saveDeckTitle(this.state.title)
+        addDeckToState(newDeck)
+
+        navigation.goBack()
+    }
     render() {
         return (
             <View style={styles.container}>
@@ -28,10 +38,7 @@ export default class NewDeck extends Component {
                                 ? styles.iosSubmitBtn
                                 : styles.androidSubmitBtn
                         }
-                        // onPress={onPress}
-                        onPress={() =>
-                            this.props.navigation.navigate('Decks')
-                        }
+                        onPress={() => this.handleSavePress()}
                     >
                         <Text style={styles.submitBtnText}>Save</Text>
                     </TouchableOpacity>
