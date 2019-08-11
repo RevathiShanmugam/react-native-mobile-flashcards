@@ -43,7 +43,6 @@ export default class NewQuestion extends Component {
                 })
             )
 
-            //console.log('New Question state', s)
         } catch (error) {
             console.log('ERROR new question save', error)
         }

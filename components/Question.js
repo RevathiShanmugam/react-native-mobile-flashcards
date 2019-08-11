@@ -26,7 +26,6 @@ export default class Question extends Component {
             cards
         })
 
-        // console.log('what is cards?', cards)
       }
 
       resetQuiz = () => {
