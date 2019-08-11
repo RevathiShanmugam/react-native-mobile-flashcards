@@ -13,8 +13,14 @@ export default class Cards extends Component {
     })
     render() {
       const { navigation } = this.props
-      const { getCards, deckID, title, addCardToState } = navigation.state.params
-      console.log('CARDS', navigation.state.params)
+      const {
+           getCards,
+           deckID,
+           title,
+           addCardToState,
+           appState
+       } = navigation.state.params
+      //console.log('CARDS', navigation.state.params)
         return (
             <View style={styles.container}>
               <View style={styles.center}>
@@ -32,13 +38,14 @@ export default class Cards extends Component {
                       }
                         // onPress={onPress}
                       onPress={() =>
-                        navigation.navigate('NewQuestion', {
+                        navigation.navigate('Question', {
                                 deckID,
                                 title,
                                 addCardToState,
-                                getCards
+                                getCards,
+                                appState
                             })
-                      }
+                        }
                     >
                         <Text style={styles.submitOutlineBtnText}>Add a Card...</Text>
                     </TouchableOpacity>

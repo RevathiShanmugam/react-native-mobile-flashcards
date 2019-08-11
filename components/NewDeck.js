@@ -31,7 +31,7 @@ export default class NewDeck extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text>Title</Text>
+                <Text style={styles.bottom}>Title</Text>
                 <TextInput
                     style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
                     onChangeText={(text) => this.setState({ title: text })}
@@ -64,6 +64,9 @@ const styles = StyleSheet.create({
     bottom: {
         flex: 1,
         justifyContent: 'flex-end'
+    },
+    label: {
+        fontSize: 20
     },
     iosSubmitBtn: {
         backgroundColor: '#007AFF',
