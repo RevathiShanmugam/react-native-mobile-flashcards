@@ -8,18 +8,25 @@ import {
     TextInput
 } from 'react-native'
 import { saveDeckTitle } from '../utils/api'
+import { NavigationActions } from 'react-navigation'
 
 export default class NewDeck extends Component {
     state = { title: '' }
 
     handleSavePress = async () => {
         const { navigation } = this.props
-        const { addDeckToState } = navigation.state.params
+        const { addDeckToState, addCardToState,
+            getCards } = navigation.state.params
 
         const newDeck = await saveDeckTitle(this.state.title)
         addDeckToState(newDeck)
 
-        navigation.goBack()
+        navigation.replace('Cards', {
+            deckID: Object.values(newDeck)[0]['id'],
+            getCards: getCards,
+            title: Object.values(newDeck)[0]['title'],
+            addCardToState: addCardToState
+        })
     }
     render() {
         return (

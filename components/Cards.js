@@ -4,8 +4,7 @@ import {
     TouchableOpacity,
     Text,
     Platform,
-    StyleSheet,
-    FlatList
+    StyleSheet
 } from 'react-native'
 
 export default class Cards extends Component {
@@ -14,8 +13,8 @@ export default class Cards extends Component {
     })
     render() {
       const { navigation } = this.props
-      const { getCards, deckID } = navigation.state.params
-
+      const { getCards, deckID, title, addCardToState } = navigation.state.params
+      console.log('CARDS', navigation.state.params)
         return (
             <View style={styles.container}>
               <View style={styles.center}>
@@ -33,7 +32,12 @@ export default class Cards extends Component {
                       }
                         // onPress={onPress}
                       onPress={() =>
-                        navigation.navigate('NewQuestion')
+                        navigation.navigate('NewQuestion', {
+                                deckID,
+                                title,
+                                addCardToState,
+                                getCards
+                            })
                       }
                     >
                         <Text style={styles.submitOutlineBtnText}>Add a Card...</Text>
