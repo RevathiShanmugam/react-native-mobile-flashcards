@@ -30,8 +30,10 @@ export default class Question extends Component {
       }
 
       resetQuiz = () => {
+         const cards = this.state.cards
         this.setState({
-             ...this.initBlob
+             ...this.initBlob,
+             cards
         })
     }
 
@@ -102,7 +104,11 @@ export default class Question extends Component {
                 )}
                 {isFinishedQuiz ? (
                     <View style={styles.top}>
-                        <Score score={this.calculateScore()} navigation={this.props.navigation} />
+                    <Score
+                        score={this.calculateScore()}
+                        navigation={this.props.navigation}
+                        resetQuiz={this.resetQuiz}
+                    />
                     </View>
                 ) : (
                     <View style={styles.bottom}>
@@ -145,6 +151,9 @@ const styles = StyleSheet.create({
     question: {
         fontSize: 40,
         flex: 1,
-        alignSelf: 'center'
+        alignSelf: 'center',
+        marginTop: 20,
+        marginBottom: 10
+
     }
 })

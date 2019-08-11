@@ -6,12 +6,17 @@ import {
     Platform,
     StyleSheet
 } from 'react-native'
+import { clearLocalNotification, setLocalNotification } from '../utils/helpers'
 
 export default class Decks extends Component {
-  handleRetakeQuiz = () => {
+  handleBackToDeck  = () => {
        const { navigation } = this.props
-       const { getCards, deckID, title, addCardToState } = navigation.state.params
-
+       const {
+                   getCards,
+                   deckID,
+                   title,
+                   addCardToState
+               } = navigation.state.params
        navigation.navigate('Cards', {
            deckID,
            title,
@@ -19,6 +24,30 @@ export default class Decks extends Component {
            getCards
        })
    }
+   handleRetakeQuiz = () => {
+        const { navigation, resetQuiz } = this.props
+        const {
+            getCards,
+            deckID,
+            title,
+            addCardToState
+        } = navigation.state.params
+
+        resetQuiz(() => {
+            navigation.navigate('Question', {
+                deckID,
+                title,
+                addCardToState,
+                getCards
+            })
+        })
+    }
+
+    componentDidMount = () => {
+        // User completed a quiz so...
+        clearLocalNotification().then(setLocalNotification)
+    }
+
     render() {
       const { score } = this.props
         return (
@@ -27,6 +56,18 @@ export default class Decks extends Component {
                     <Text style={styles.score}>{score}%</Text>
                 </View>
                 <View style={styles.bottom}>
+                <TouchableOpacity
+                        style={
+                            Platform.OS === 'ios'
+                                ? styles.iosSubmitOutlineBtn
+                                : styles.androidSubmitOutlineBtn
+                        }
+                        onPress={() => this.handleBackToDeck()}
+                    >
+                        <Text style={styles.submitOutlineBtnText}>
+                            Go back to the deck
+                        </Text>
+                    </TouchableOpacity>
                     <TouchableOpacity
                         style={
                             Platform.OS === 'ios'
@@ -80,5 +121,37 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 22,
         textAlign: 'center'
+      },
+  iosSubmitOutlineBtn: {
+      backgroundColor: 'white',
+      padding: 10,
+      borderColor: '#007AFF',
+      borderWidth: 1,
+      borderRadius: 4,
+      height: 45,
+      marginBottom: 4
+  },
+  androidSubmitOutlineBtn: {
+      backgroundColor: 'white',
+      padding: 10,
+      borderColor: '#007AFF',
+      borderWidth: 1,
+      borderRadius: 4,
+      height: 45,
+      alignSelf: 'flex-end',
+      justifyContent: 'center',
+      alignItems: 'center'
+  },
+  submitOutlineBtnText: {
+      color: '#007AFF',
+      fontSize: 22,
+      textAlign: 'center'
+  },
+  center: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginLeft: 30,
+      marginRight: 30
   }
 })

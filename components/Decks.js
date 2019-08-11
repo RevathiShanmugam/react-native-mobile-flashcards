@@ -8,6 +8,7 @@ import {
     StyleSheet,
     FlatList
 } from 'react-native'
+import { FontAwesome } from '@expo/vector-icons'
 
 export default class Decks extends Component {
   state = {
@@ -42,13 +43,13 @@ export default class Decks extends Component {
       this.setState({
           cards: {
               ...this.state.cards,
-              [cardKey]: cardVal
+              [cardKey]: cardVal                },
+                decks: {
+                    ...this.state.decks,
+                    [deckKey]: deckVal
+                }
             },
-            decks: {
-                ...this.state.decks,
-                [deckKey]: deckVal
-          }
-        }, cb)
+            cb)
 
       return this.state
     }
@@ -85,6 +86,14 @@ export default class Decks extends Component {
         return (
             <View style={styles.container}>
                 <FlatList
+                ItemSeparatorComponent={({ highlighted }) => (
+                        <View
+                            style={[
+                                styles.separator,
+                                highlighted && { marginLeft: 0 }
+                            ]}
+                        />
+                    )}
                     data={sortedDecks}
                     keyExtractor={(item) => {
                         return item.id
@@ -100,8 +109,22 @@ export default class Decks extends Component {
                                 })
                             }}
                         >
-                            <View>
-                                <Text style={styles.listItem}>{item.title}</Text>
+                        <View
+                            style={[
+                                styles.listItem,
+                                {
+                                    flexDirection: 'column',
+                                    justifyContent: 'space-between'
+                                    // alignItems: 'space-around'
+                                }
+                            ]}
+                        >
+                            <Text style={styles.listItemText}>{item.title}</Text>
+                            {/* <FontAwesome
+                                name="angle-right"
+                                size={30}
+                                color={'gray'}
+                            /> */}
                             </View>
                         </TouchableOpacity>
                     )}
@@ -146,7 +169,14 @@ const styles = StyleSheet.create({
     },
     listItem: {
        fontSize: 22,
-       marginBottom: 12
+       marginBottom: 12,
+       marginTop: 12,
+       paddingTop: 8,
+       paddingBottom: 8
+   },
+   listItemText: {
+       fontSize: 22,
+       flex: 1,
     },
     bottom: {
         flex: 1,
@@ -171,6 +201,12 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 22,
         textAlign: 'center'
+    },
+    separator: {
+        height: 1,
+        // width: '86%',
+        backgroundColor: '#CED0CE',
+        marginLeft: 0
     },
     center: {
         flex: 1,
