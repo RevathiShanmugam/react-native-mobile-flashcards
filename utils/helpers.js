@@ -2,7 +2,7 @@ import React from 'react'
 import { AsyncStorage } from 'react-native'
 import { Notifications, Permissions } from 'expo'
 
-const NOTIFICATION_KEY = 'Flashcards:notifications'
+export const NOTIFICATION_KEY = 'Flashcards:notifications'
 
 export function getDailyReminderValue() {
     return {
@@ -52,7 +52,7 @@ export function setLocalNotification() {
 
                             let tomorrow = new Date()
                             tomorrow.setDate(tomorrow.getDate() + 1)
-                            tomorrow.setHours(20)
+                            tomorrow.setHours(8)
                             tomorrow.setMinutes(0)
 
                             Notifications.scheduleLocalNotificationAsync(
