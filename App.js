@@ -4,7 +4,14 @@ import { StyleSheet, Text, View } from 'react-native';
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+    <UdaciStatusBar barStyle="dark-content" />
+      {/* <Decks /> */}
+      {/* <Cards /> */}
+      {/* <Question /> */}
+    <Answer />
+      {/* <Score /> */}
+      {/* <NewDeck /> */}
+      {/* <NewQuestion /> */}
     </View>
   );
 }
