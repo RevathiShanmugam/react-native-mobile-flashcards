@@ -12,16 +12,20 @@ export default class Answer extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={{ fontSize: 32 }}>Answer</Text>
-
                 <Text>Question 2/5, 3 remaining</Text>
 
                 <Text style={styles.answer}>Yes!</Text>
 
                 <View style={styles.bottom}>
-                    <TextButton style={{ padding: 10 }}>Go back to the question</TextButton>
-
-                    <TouchableOpacity
+                <TextButton
+                       style={{ padding: 10 }}
+                       onPress={() =>
+                           this.props.navigation.navigate('Question')
+                       }
+                   >
+                       Go back to the question
+                   </TextButton>
+                  <TouchableOpacity
                         style={
                             Platform.OS === 'ios'
                                 ? styles.iosCorrectGuessBtn
@@ -74,9 +78,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#E00000',
         padding: 10,
         borderRadius: 7,
-        height: 45,
-        // marginLeft: 40,
-        // marginRight: 40
+        height: 45
     },
     androidWrongGuessBtn: {
         backgroundColor: '#E00000',

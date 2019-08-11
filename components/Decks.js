@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { createStackNavigator } from 'react-navigation'
 import {
     View,
     TouchableOpacity,
@@ -12,13 +13,22 @@ export default class Decks extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={{ fontSize: 32 }}>Flashcards</Text>
                 <FlatList
                     data={[{ key: 'a' }, { key: 'b' }]}
-                    renderItem={({ item }) => <Text>{item.key}</Text>}
+                    renderItem={({ item }) => (
+                        <TouchableOpacity
+                            onPress={() => {
+                                this.props.navigation.navigate('Cards')
+                            }}
+                        >
+                            <View>
+                                <Text style={styles.listItem}>{item.key}</Text>
+                            </View>
+                        </TouchableOpacity>
+                    )}
                 />
 
-                <View style={styles.container}>
+                <View style={styles.bottom}>
                     <TouchableOpacity
                         style={
                             Platform.OS === 'ios'
@@ -26,6 +36,9 @@ export default class Decks extends Component {
                                 : styles.androidSubmitBtn
                         }
                         // onPress={onPress}
+                        onPress={
+                            () => this.props.navigation.navigate('NewDeck')
+                        }
                     >
                         <Text style={styles.submitBtnText}>
                             Create a Deck...
@@ -47,6 +60,10 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flex: 1,
         alignItems: 'center'
+    },
+    listItem: {
+       fontSize: 22,
+       marginBottom: 12
     },
     bottom: {
         flex: 1,
